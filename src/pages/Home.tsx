@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { motion } from 'framer-motion'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { useNavigate } from 'react-router-dom'
-import ProductCard from '../product/components/ProductCard'
+import ProductCard from '../components/Card'
 import { getProducts } from '../product/product.service'
 import { ProductApi } from '../types/api.type'
 import { Product } from '../types/product.type'
@@ -55,7 +55,7 @@ export function Home() {
   }
 
   function redirect(id: number) {
-    navigate(`/${id}`)
+    navigate(`/product/${id}`)
   }
 
   return (

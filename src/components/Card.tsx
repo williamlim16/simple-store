@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import StarRating from '../../components/StarRating'
-import { Product } from '../../types/product.type'
+import StarRating from './StarRating'
+import { Product } from '../types/product.type'
 
 type Props = {
   product: Product

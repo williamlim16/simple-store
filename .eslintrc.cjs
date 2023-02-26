@@ -29,5 +29,6 @@ module.exports = {
         peerDependencies: false,
       },
     ],
+    'react/jsx-props-no-spreading': 0,
   },
 }

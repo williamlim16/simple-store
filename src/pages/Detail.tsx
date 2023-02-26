@@ -4,15 +4,19 @@ import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { useDispatch } from 'react-redux'
 import { getProduct, getProducts } from '../product/product.service'
 import { Product } from '../types/product.type'
 import StarRating from '../components/StarRating'
 import '@splidejs/react-splide/css'
 import { ProductApi } from '../types/api.type'
-import ProductCard from '../product/components/ProductCard'
+import ProductCard from '../components/Card'
+import Button from '../components/Button'
+import { addProduct } from '../cart/cart.slice'
 
 export function Detail() {
   const { productId } = useParams()
+  const dispatch = useDispatch()
 
   const {
     isLoading,
@@ -89,6 +93,11 @@ export function Detail() {
                   <p>{product.category}</p>
                   <p>Stock:{product.stock}</p>
                   <StarRating rating={product.rating} />
+                  <div className="mt-10">
+                    <Button onClick={() => dispatch(addProduct(product))}>
+                      Add to Cart
+                    </Button>
+                  </div>
                 </>
               ) : null}
             </div>
