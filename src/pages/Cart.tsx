@@ -1,20 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux'
 import Button from '../components/Button'
 import CardDetail from '../components/CardDetail'
-import { getCart } from '../store'
 import { Product } from '../types/product.type'
-import { removeProduct } from '../cart/cart.slice'
+import useCart from '../cart/cart.service'
 // import { addProduct, removeProduct } from '../cart/cart.slice'
 
 function Cart() {
-  const cart = useSelector(getCart)
-  //   const dispatch = useDispatch()
-  const dispatch = useDispatch()
+  const { cart, removeProductFromCart } = useCart()
   function actions(product: Product) {
     return (
       <Button
         onClick={() => {
-          dispatch(removeProduct(product.id))
+          removeProductFromCart(product.id)
         }}
       >
         Delete

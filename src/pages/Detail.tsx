@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import { useDispatch } from 'react-redux'
 import { getProduct, getProducts } from '../product/product.service'
 import { Product } from '../types/product.type'
 import StarRating from '../components/StarRating'
@@ -12,11 +11,11 @@ import '@splidejs/react-splide/css'
 import { ProductApi } from '../types/api.type'
 import ProductCard from '../components/Card'
 import Button from '../components/Button'
-import { addProduct } from '../cart/cart.slice'
+import useCart from '../cart/cart.service'
 
 export function Detail() {
   const { productId } = useParams()
-  const dispatch = useDispatch()
+  const { addProductToCart } = useCart()
 
   const {
     isLoading,
@@ -43,7 +42,7 @@ export function Detail() {
 
   const navigate = useNavigate()
   function redirect(id: number) {
-    navigate(`/${id}`)
+    navigate(`/product/${id}`)
   }
 
   return (
@@ -55,6 +54,14 @@ export function Detail() {
       ) : (
         <div className="flex flex-col">
           <p className="mx-5 mt-10 text-3xl">Product Details</p>
+          <Button
+            onClick={() => {
+              navigate('/cart')
+            }}
+            type="button"
+          >
+            Cart
+          </Button>
           <div className="m-10 flex flex-wrap overflow-hidden rounded-xl shadow-lg">
             <div className=" w-full md:w-80 ">
               <Splide
@@ -94,7 +101,11 @@ export function Detail() {
                   <p>Stock:{product.stock}</p>
                   <StarRating rating={product.rating} />
                   <div className="mt-10">
-                    <Button onClick={() => dispatch(addProduct(product))}>
+                    <Button
+                      onClick={() => {
+                        addProductToCart(product)
+                      }}
+                    >
                       Add to Cart
                     </Button>
                   </div>
